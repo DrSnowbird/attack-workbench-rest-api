@@ -7,19 +7,19 @@ const stixCoreDefinitions = require('./subschemas/stix-core');
 const relationshipProperties = {
     // relationship specific properties
     modified: { type: Date, required: true },
-    name: String,
-    description: String,
-    relationship_type: { type: String, required: true },
-    source_ref: { type: String, required: true },
-    target_ref: { type: String, required: true },
+    name: { type: String, trim: true },
+    description: { type: String, trim: true },
+    relationship_type: { type: String, required: true, trim: true },
+    source_ref: { type: String, required: true, trim: true },
+    target_ref: { type: String, required: true, trim: true },
     start_time: Date,
     stop_time: Date,
 
     // ATT&CK custom stix properties
-    x_mitre_modified_by_ref: String,
+    x_mitre_modified_by_ref: { type: String, trim: true },
     x_mitre_deprecated: Boolean,
-    x_mitre_version: String,
-    x_mitre_attack_spec_version: String
+    x_mitre_version: { type: String, trim: true },
+    x_mitre_attack_spec_version: { type: String, trim: true }
 };
 
 // Create the definition

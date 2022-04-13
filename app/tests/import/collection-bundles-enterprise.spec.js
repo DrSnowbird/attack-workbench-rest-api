@@ -53,44 +53,44 @@ describe('Collection Bundles API Full-Size Test', function() {
                 collectionBundle = await readJson(filePath);
             });
 
-            it(`POST /api/collection-bundles previews the import of the ${ filename } collection bundle (checkOnly)`, async function() {
-                this.timeout(30000);
-                const body = collectionBundle;
-                const res = await request(app)
-                    .post('/api/collection-bundles?checkOnly=true')
-                    .send(body)
-                    .set('Accept', 'application/json')
-                    .expect(201)
-                    .expect('Content-Type', /json/);
-
-                // We expect to get the created collection object
-                const collection = res.body;
-                expect(collection).toBeDefined();
-
-                // MITRE marking definition is missing from x_mitre_contents in the bundle
-                expect(collection.workspace.import_categories.errors.length).toBe(1);
-            });
-
-            it(`POST /api/collection-bundles previews the import of the ${ filename } collection bundle (previewOnly)`, async function() {
-                this.timeout(30000);
-                const body = collectionBundle;
-                const res = await request(app)
-                    .post('/api/collection-bundles?previewOnly=true')
-                    .send(body)
-                    .set('Accept', 'application/json')
-                    .expect(201)
-                    .expect('Content-Type', /json/);
-
-                // We expect to get the created collection object
-                const collection = res.body;
-                expect(collection).toBeDefined();
-
-                // MITRE marking definition is missing from x_mitre_contents in the bundle
-                expect(collection.workspace.import_categories.errors.length).toBe(1);
-            });
+            // it(`POST /api/collection-bundles previews the import of the ${ filename } collection bundle (checkOnly)`, async function() {
+            //     this.timeout(30000);
+            //     const body = collectionBundle;
+            //     const res = await request(app)
+            //         .post('/api/collection-bundles?checkOnly=true')
+            //         .send(body)
+            //         .set('Accept', 'application/json')
+            //         .expect(201)
+            //         .expect('Content-Type', /json/);
+            //
+            //     // We expect to get the created collection object
+            //     const collection = res.body;
+            //     expect(collection).toBeDefined();
+            //
+            //     // MITRE marking definition is missing from x_mitre_contents in the bundle
+            //     expect(collection.workspace.import_categories.errors.length).toBe(1);
+            // });
+            //
+            // it(`POST /api/collection-bundles previews the import of the ${ filename } collection bundle (previewOnly)`, async function() {
+            //     this.timeout(30000);
+            //     const body = collectionBundle;
+            //     const res = await request(app)
+            //         .post('/api/collection-bundles?previewOnly=true')
+            //         .send(body)
+            //         .set('Accept', 'application/json')
+            //         .expect(201)
+            //         .expect('Content-Type', /json/);
+            //
+            //     // We expect to get the created collection object
+            //     const collection = res.body;
+            //     expect(collection).toBeDefined();
+            //
+            //     // MITRE marking definition is missing from x_mitre_contents in the bundle
+            //     expect(collection.workspace.import_categories.errors.length).toBe(1);
+            // });
 
             it(`POST /api/collection-bundles imports the ${ filename } collection bundle`, async function() {
-                this.timeout(60000);
+                this.timeout(240000);
                 const body = collectionBundle;
                 const res = await request(app)
                     .post('/api/collection-bundles')
@@ -107,26 +107,26 @@ describe('Collection Bundles API Full-Size Test', function() {
                 expect(collection.workspace.import_categories.errors.length).toBe(1);
             });
 
-            const domain = 'enterprise-attack';
-            it('GET /api/stix-bundles exports the STIX bundle', async function() {
-                const res = await request(app)
-                    .get(`/api/stix-bundles?domain=${ domain }`)
-                    .set('Accept', 'application/json')
-                    .expect(200)
-                    .expect('Content-Type', /json/);
-
-                // We expect to get the exported stix bundle
-                const stixBundle = res.body;
-                expect(stixBundle).toBeDefined();
-                expect(Array.isArray(stixBundle.objects)).toBe(true);
-
-                // We expect to get at most one of any object
-                const objectMap = new Map();
-                for (const stixObject of stixBundle.objects) {
-                    expect(objectMap.get(stixObject.id)).toBeUndefined();
-                    objectMap.set(stixObject.id, stixObject.id);
-                }
-            });
+            // const domain = 'enterprise-attack';
+            // it('GET /api/stix-bundles exports the STIX bundle', async function() {
+            //     const res = await request(app)
+            //         .get(`/api/stix-bundles?domain=${ domain }`)
+            //         .set('Accept', 'application/json')
+            //         .expect(200)
+            //         .expect('Content-Type', /json/);
+            //
+            //     // We expect to get the exported stix bundle
+            //     const stixBundle = res.body;
+            //     expect(stixBundle).toBeDefined();
+            //     expect(Array.isArray(stixBundle.objects)).toBe(true);
+            //
+            //     // We expect to get at most one of any object
+            //     const objectMap = new Map();
+            //     for (const stixObject of stixBundle.objects) {
+            //         expect(objectMap.get(stixObject.id)).toBeUndefined();
+            //         objectMap.set(stixObject.id, stixObject.id);
+            //     }
+            // });
         });
     }
 

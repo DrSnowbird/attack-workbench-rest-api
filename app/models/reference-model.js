@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 
 // Create the definition
 const referenceDefinition = {
-    source_name: { type: String, required: true },
-    description: { type: String, required: true },
-    url: String
+    source_name: { type: String, required: true, trim: true },
+    description: { type: String, required: true, trim: true },
+    url: { type: String, trim: true }
 };
 
 // Create the schema

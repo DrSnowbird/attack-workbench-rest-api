@@ -4,12 +4,12 @@ const mongoose = require('mongoose');
 
 // Create the definition
 const systemConfigurationDefinition = {
-    organization_identity_ref: { type: String, required: true },
-    anonymous_user_account_id: String,
-    default_marking_definitions: [ String ],
+    organization_identity_ref: { type: String, required: true, trim: true },
+    anonymous_user_account_id: { type: String, trim: true },
+    default_marking_definitions: [ { type: String, trim: true } ],
     organization_namespace: {
         range_start: { type: Number, default: null },
-        prefix: { type: String, default: null }
+        prefix: { type: String, trim: true, default: null }
     }
 };
 

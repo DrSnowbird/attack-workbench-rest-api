@@ -390,6 +390,11 @@ exports.importBundle = function(collection, data, options, callback) {
                                                     referenceImportResults.aliasReferences++;
                                                 }
                                                 else {
+                                                    // Trim to make sure that references in existing collection bundles don't cause a duplicate key error
+                                                    // Necessary because there can be two references in the bundle that are intended to be the same reference,
+                                                    // but one has an extra trailing space in the source_name. The database will apply trim() to the source_name
+                                                    // property when saving, so we have to do the same here.
+                                                    externalReference.source_name = externalReference.source_name.trim();
                                                     if (importReferences.has(externalReference.source_name)) {
                                                         referenceImportResults.duplicateReferences++;
                                                         // if (externalReference.description === importReferences.get(externalReference.source_name)) {

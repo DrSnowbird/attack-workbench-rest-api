@@ -6,7 +6,8 @@ const mongoose = require('mongoose');
 const userAccountDefinition = {
     id: { type: String, required: true },
     email: {
-        type: String, index: {
+        type: String,
+        index: {
             unique: true,
             partialFilterExpression: { email: { $type: 'string' }}
         }

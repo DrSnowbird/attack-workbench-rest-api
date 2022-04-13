@@ -4,18 +4,18 @@ const mongoose = require('mongoose');
 
 // Create the definition
 const collectionVersionDefinition = {
-    version: { type: String, required: true },
+    version: { type: String, required: true, trim: true },
     modified: { type: Date, required: true },
-    url: { type: String },
-    taxii_url: { type: String },
-    release_notes: { type: String }
+    url: { type: String, trim: true },
+    taxii_url: { type: String, trim: true },
+    release_notes: { type: String, trim: true }
 };
 const collectionVersionSchema = new mongoose.Schema(collectionVersionDefinition, { _id: false });
 
 const collectionReferenceDefinition = {
     id: { type: String, required: true },
-    name : { type: String, required: true },
-    description : { type: String },
+    name : { type: String, required: true, trim: true },
+    description : { type: String, trim: true },
     created : { type: Date, required: true },
     versions : [ collectionVersionSchema ]
 };
@@ -24,8 +24,8 @@ const collectionReferenceSchema = new mongoose.Schema(collectionReferenceDefinit
 // This is the collection index that was retrieved
 const collectionIndexObjectDefinition = {
     id: { type: String, required: true },
-    name: { type: String, required: true },
-    description: { type: String },
+    name: { type: String, required: true, trim: true },
+    description: { type: String, trim: true },
     created: { type: Date, required: true },
     modified: { type: Date, required: true },
     collections: [ collectionReferenceSchema ]
@@ -37,12 +37,12 @@ const collectionIndexWrapperDefinition = {
         ...collectionIndexObjectDefinition
     },
     workspace: {
-        remote_url: { type: String },
+        remote_url: { type: String, trim: true },
         update_policy: {
             automatic: { type: Boolean },
             interval: { type: Number },
             last_retrieval: { type: Date },
-            subscriptions: [ String ]
+            subscriptions: [ { type: String, trim: true } ]
         }
     }
 };

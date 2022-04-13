@@ -6,15 +6,15 @@ const AttackObject = require('./attack-object-model');
 const noteProperties = {
     // note specific properties
     modified: { type: Date, required: true },
-    abstract: String,
-    content: { type: String, required: true },
-    authors: [ String ],
-    object_refs: { type: [ String ], required: true },
+    abstract: { type: String, trim: true },
+    content: { type: String, required: true, trim: true },
+    authors: [ { type: String, trim: true } ],
+    object_refs: { type: [ { type: String, trim: true } ], required: true },
 
     // ATT&CK custom stix properties
-    x_mitre_modified_by_ref: String,
+    x_mitre_modified_by_ref: { type: String, trim: true },
     x_mitre_deprecated: Boolean,
-    x_mitre_attack_spec_version: String
+    x_mitre_attack_spec_version: { type: String, trim: true }
 };
 
 // Create the definition

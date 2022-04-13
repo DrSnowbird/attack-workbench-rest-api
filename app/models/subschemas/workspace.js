@@ -22,9 +22,9 @@ module.exports.common = {
                 'static'
             ]
         },
-        created_by_user_account: String
+        created_by_user_account: { type: String, trim: true }
     },
-    attack_id: String,
+    attack_id: { type: String, trim: true },
     collections: [ collectionVersionSchema ]
 };
 
@@ -32,7 +32,7 @@ module.exports.common = {
 
 const exportData = {
     export_timestamp: Date,
-    bundle_id: String
+    bundle_id: { type: String, trim: true }
 };
 const exportDataSchema = new mongoose.Schema(exportData, { _id: false });
 
@@ -40,7 +40,7 @@ const importError = {
     object_ref: { type: String, required: true },
     object_modified : { type: Date },
     error_type: { type: String, required: true },
-    error_message: { type: String }
+    error_message: { type: String, trim: true }
 };
 const importErrorSchema = new mongoose.Schema(importError, { _id: false });
 
@@ -48,21 +48,21 @@ const importErrorSchema = new mongoose.Schema(importError, { _id: false });
  * Workspace property definition for collection objects
  */
 const importCategories = {
-    additions: [ String ],
-    changes: [ String ],
-    minor_changes: [ String ],
-    revocations: [ String ],
-    deprecations: [ String ],
-    supersedes_user_edits: [ String ],
-    supersedes_collection_changes: [ String ],
-    duplicates: [ String ],
-    out_of_date: [ String ],
+    additions: [ { type: String, trim: true } ],
+    changes: [ { type: String, trim: true } ],
+    minor_changes: [ { type: String, trim: true } ],
+    revocations: [ { type: String, trim: true } ],
+    deprecations: [ { type: String, trim: true } ],
+    supersedes_user_edits: [ { type: String, trim: true } ],
+    supersedes_collection_changes: [ { type: String, trim: true } ],
+    duplicates: [ { type: String, trim: true } ],
+    out_of_date: [ { type: String, trim: true } ],
     errors: [ importErrorSchema ]
 };
 
 const importReferences = {
-    additions: [ String ],
-    changes: [ String ]
+    additions: [ { type: String, trim: true } ],
+    changes: [ { type: String, trim: true } ]
 };
 
 const reimportData = {
@@ -86,7 +86,7 @@ module.exports.collection = {
                 'reviewed'
             ]
         },
-        created_by_user_account: String,
+        created_by_user_account: { type: String, trim: true },
         release: Boolean
     }
 };

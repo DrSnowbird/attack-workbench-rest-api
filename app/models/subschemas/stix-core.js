@@ -3,16 +3,16 @@
 const mongoose = require('mongoose');
 
 const externalReference = {
-    source_name: { type: String, required: true },
-    description: { type: String },
-    url: { type: String },
-    external_id: { type: String }
+    source_name: { type: String, required: true, trim: true },
+    description: { type: String, trim: true },
+    url: { type: String, trim: true },
+    external_id: { type: String, trim: true }
 };
 const externalReferenceSchema = new mongoose.Schema(externalReference, { _id: false });
 
 const killChainPhase = {
-    kill_chain_name: { type: String, required: true },
-    phase_name : { type: String, required: true }
+    kill_chain_name: { type: String, required: true, trim: true },
+    phase_name : { type: String, required: true, trim: true }
 };
 module.exports.killChainPhaseSchema = new mongoose.Schema(killChainPhase, { _id: false });
 
@@ -42,8 +42,8 @@ module.exports.commonRequiredSDO = {
 };
 
 module.exports.commonOptionalSDO = {
-    created_by_ref: { type: String },
+    created_by_ref: { type: String, trim: true },
     revoked: { type: Boolean },
     external_references: [ externalReferenceSchema ],
-    object_marking_refs: [ String ]
+    object_marking_refs: [ { type: String, trim: true } ]
 };
